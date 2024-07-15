@@ -12,4 +12,4 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 3. Execute `php artisan migrate`
 4. Execute `php artisan serve`
 
-Rotas se encontram no arquivo `routes/api.php`, mas também podem ser acessadas através do arquivo `dumpRotas.txt` 
+Rotas se encontram no arquivo `routes/api.php`, mas também podem ser encontradas no arquivo `dumpRotas.txt` 
