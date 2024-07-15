@@ -1,0 +1,13 @@
+- Rotas de Login e Registro
+/registerUser
+/login
+
+- Rotas de Produtor
+/produtor     
+/produtores   
+/produtor/{id}
+
+- Rotas de Propriedade
+/propriedade     
+/propriedades    
+/propriedade/{id}
