@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produtor;
+use Illuminate\Support\Facades\Log;
 
 class ProdutorController extends Controller
 {
@@ -13,8 +14,9 @@ class ProdutorController extends Controller
             'nomeProdutor' => 'required|string',
             'cpfProdutor' => 'required|string|unique:produtores',
         ]);
-
         $produtor = Produtor::create($request->all());
+        
+        Log::info('Produtor criado com sucesso!');
 
         return response()->json($produtor, 201);
     }

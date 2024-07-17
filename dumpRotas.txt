@@ -1,6 +1,6 @@
 - Rotas de Login e Registro
-/registerUser
-/login
+/registerUser --> rota de cadastro de novos usuários na plataforma, senha deve conter 8 caracteres
+/login --> rota de login na plataforma
 
 - Rotas de Produtor
 /produtor     

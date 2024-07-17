@@ -6,14 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function create(Request $request)
     {
         $request->validate([
             'nomeUsuario' => 'required|string|unique:usuarios',
-            'senhaUsuario' => 'required|string|min:8',
+            'senhaUsuario' => 'required|string|min:8', //Mínimo de 8 caracteres na senha
         ]);
         
         $usuario = new Usuario([
@@ -22,7 +23,7 @@ class AuthController extends Controller
         ]);
         
         $usuario->save();
-
+        Log::info('Usuário registrado com sucesso!');
         return response()->json(['message' => 'Usuário registrado com sucesso!'], 201);
     }
 
@@ -48,14 +49,12 @@ class AuthController extends Controller
             return response()->json(['message' => 'Credenciais inválidas!'], 401);
         }
 
-        if ($usuario->currentAccessToken()) {
-            $usuario->currentAccessToken()->delete();
-        }
+        $token = $usuario->createToken('authToken',['*'],now()->addMinutes(60));
+        // $token = $usuario->createToken('authToken');
 
-        //$token = $usuario->createToken('authToken',['*'],now()->addMinutes(60));
-        $token = $usuario->createToken('authToken');
-
-        return response()->json(['token' => $token->plainTextToken, 'Expires in' => 60 .' minutes'], 200);
+        Log::info('Usuário logado com sucesso!');
+        
+        return response()->json(['token' => $token, 'Expires in' => 60 .' minutes'], 200);
     }
 }
 
