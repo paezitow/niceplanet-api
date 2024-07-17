@@ -13,15 +13,15 @@ Api que busca informações de produtores e propriedades em um banco de dados, p
 
 - PHP >= 8.x
 - Composer
-- MySQL (ou outro banco de dados suportado pelo Laravel)
+- MySQL
 
 ## Configuração
 
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-seu-projeto.git
-   cd nome-do-seu-projeto
+   git clone https://github.com/seu-usuario/niceplanet-api.git
+   cd niceplanet-api
    ```
 
 2. **Instale as dependências do Composer:**
