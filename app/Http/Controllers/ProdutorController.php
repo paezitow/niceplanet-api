@@ -14,7 +14,12 @@ class ProdutorController extends Controller
             'nomeProdutor' => 'required|string',
             'cpfProdutor' => 'required|string|unique:produtores',
         ]);
+        
         $produtor = Produtor::create($request->all());
+
+        if(!$produtor){
+            return response()->json(['message' => 'O produtor não foi cadastrado'], 400);
+        }
         
         Log::info('Produtor criado com sucesso!');
 
@@ -23,15 +28,19 @@ class ProdutorController extends Controller
 
     public function show($id)
     {
-        $produtor = Produtor::findOrFail($id);
-
+        $produtor = Produtor::find($id);
+        if(!$produtor){
+            return response()->json(['message' => 'Nenhum produtor encontrado'], 404);
+        }
         return response()->json($produtor, 200);
     }
 
     public function showAll()
     {
-        $produtores = Produtor::get();
-
-        return response()->json($produtores, 200);
+        $produtores = Produtor::all();
+        if(!$produtores){
+            return response()->json(['message' => 'Nenhum produtor encontrado'], 404);
+        }
+        return response()->json(['produtores'=>$produtores], 200);
     }
 }

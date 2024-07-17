@@ -23,7 +23,9 @@ class AuthController extends Controller
         ]);
         
         $usuario->save();
+
         Log::info('Usuário registrado com sucesso!');
+        
         return response()->json(['message' => 'Usuário registrado com sucesso!'], 201);
     }
 
@@ -50,11 +52,10 @@ class AuthController extends Controller
         }
 
         $token = $usuario->createToken('authToken',['*'],now()->addMinutes(60));
-        // $token = $usuario->createToken('authToken');
 
         Log::info('Usuário logado com sucesso!');
         
-        return response()->json(['token' => $token, 'Expires in' => 60 .' minutes'], 200);
+        return response()->json(['token' => $token->plainTextToken, 'Expires in' => 60 .' minutes'], 200);
     }
 }
 

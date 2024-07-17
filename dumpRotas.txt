@@ -11,3 +11,7 @@
 /propriedade     
 /propriedades    
 /propriedade/{id}
+
+- Rotas de Usuário
+/usuarios
+/usuario/{id}

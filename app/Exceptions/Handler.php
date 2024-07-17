@@ -27,4 +27,41 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Throwable $exception
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     */
+    public function render($request, Throwable $exception)
+    {
+        // Handle 404 errors (NotFoundHttpException)
+        if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
+            return response()->json([
+                'message' => 'Not found',
+                'status' => 404
+            ], 404);
+        }
+
+        // Handle other HttpExceptions
+        if ($exception instanceof HttpException) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => $exception->getStatusCode()
+            ], $exception->getStatusCode());
+        }
+
+        // Handle Validation exceptions
+        if ($exception instanceof ValidationException) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $exception->errors()
+            ], 422);
+        }
+
+        // Default to the parent handler for other exceptions
+        return parent::render($request, $exception);
+    }
 }
