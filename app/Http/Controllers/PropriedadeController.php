@@ -22,7 +22,7 @@ class PropriedadeController extends Controller
         }
 
         Log::info('Propriedade criada com sucesso!');
-        
+
         return response()->json($propriedade, 201);
         
     }
@@ -40,6 +40,7 @@ class PropriedadeController extends Controller
     public function showAll()
     {
         $propriedades = Propriedade::all();
+        
         if(!$propriedades){
             return response()->json(['message' => 'Nenhuma propriedade encontrada'], 404);
         }

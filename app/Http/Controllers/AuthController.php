@@ -21,6 +21,10 @@ class AuthController extends Controller
             'nomeUsuario' => $request->nomeUsuario,
             'senhaUsuario' => Hash::make($request->senhaUsuario),
         ]);
+
+        if(!$usuario){
+            return response()->json(['message' => 'O usuário não foi cadastrado'], 400);
+        }
         
         $usuario->save();
 
